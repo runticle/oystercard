@@ -16,13 +16,6 @@ describe Oystercard do
     end
   end
 
-  describe "#deduct" do
-    it "deducts 2 from the balance" do
-      subject.deduct(2)
-      expect(subject.balance).to eq -2
-    end
-  end
-
   describe "journey methods" do
     it "is initially not in journey" do
       expect(subject).not_to be_in_journey
@@ -41,6 +34,10 @@ describe Oystercard do
     it "raises an error if balance is less than fare" do
       subject.top_up(0.5)
       expect {subject.touch_in}.to raise_error "not enough money"
+    end
+    it "deducts the fare when you touch out" do
+      subject.top_up(5)
+      expect{subject.touch_out}.to change{subject.balance}.by(-Oystercard::MINIMUM_CHARGE)
     end
   end
 end
