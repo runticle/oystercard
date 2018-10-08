@@ -21,5 +21,20 @@ describe Oystercard do
       subject.deduct(2)
       expect(subject.balance).to eq -2
     end
-  end 
+  end
+
+  describe "journey methods" do
+    it "is initially not in journey" do
+      expect(subject).not_to be_in_journey
+    end
+    it "changes in_journey to true when we touch_in" do
+      subject.touch_in
+      expect(subject).to be_in_journey
+    end
+    it "touches in and out and in_journey is false" do
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
+    end
+  end
 end
