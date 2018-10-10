@@ -1,4 +1,4 @@
-require 'journey'
+require 'journeylog'
 
 class Oystercard
   attr_reader :balance, :entry_station, :journeys
@@ -9,7 +9,8 @@ class Oystercard
     @balance = 0
     @limit = limit
     @entry_station
-    @journeys = []
+    # @journeys = []
+    @history = JourneyLog.new
   end
 
   def top_up(amount)
@@ -19,8 +20,7 @@ class Oystercard
 
   def touch_in(station)
     raise "not enough money" if @balance < MINIMUM_CHARGE
-    @journey = Journey.new
-    @journey.start(station)
+    @journey = JourneyLog.new(station)
     @entry_station = station
   end
 
@@ -40,9 +40,9 @@ class Oystercard
     @balance -= amount
   end
 
-  def add_to_journeys(station)
-    @complete_journey = { @entry_station => station }
-    @journeys << @complete_journey
-    @entry_station = nil
-  end
+  # def add_to_journeys(station)
+  #   @complete_journey = { @entry_station => station }
+  #   @journeys << @complete_journey
+  #   @entry_station = nil
+  # end
 end

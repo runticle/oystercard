@@ -48,20 +48,5 @@ describe Oystercard do
       subject.touch_in(entry_station)
       expect(subject.entry_station).to eq entry_station
     end
-    it "resets entry station to nil when touching out" do
-      subject.top_up(5)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.entry_station).to eq nil
-    end
-    it "checks a new card has no journeys" do
-      expect(subject.journeys).to be_empty
-    end
-    it "checks that touching in and out creates one journey" do
-      subject.top_up(5)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.journeys.length).to eq 1
-    end
   end
 end
